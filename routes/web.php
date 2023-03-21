@@ -39,5 +39,10 @@ Route::get('/search', function(Request $request){
     return $request->name;
 });
 
-
-
+// Single Listing
+Route::get('/listing/{id}',function($id){
+    return view('listing',[
+        'heading' => 'Latest Listings',
+        'listing' => Listing::find($id)
+    ]);
+});
