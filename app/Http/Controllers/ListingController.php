@@ -8,9 +8,14 @@ use Illuminate\Http\Request;
 class ListingController extends Controller
 {
     // Show all listings
+    // public function index(Request $request) Dependency Injecion Approach
+    
     public function index(){
+        
         return view('listings.index', [
-            'listings' => Listing::all()
+            'listings' => Listing::latest()
+            ->filter(request(['tag']))
+            ->get()
         ]);
     }
 

@@ -17,7 +17,7 @@ use App\Http\Controllers\ListingController;
 |
 */
 
-// Common Resource Rouutes:
+// Common Resource Routes:
 // index - Show all listings
 // show - Show single listing
 // create - Show from to create new listing
