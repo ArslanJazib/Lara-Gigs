@@ -1,8 +1,10 @@
 <?php
 
-use App\Models\Listing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+use App\Models\Listing;
+use App\Http\Controllers\ListingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,34 +17,53 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('listings', [
-        'heading' => 'Latest Listings',
-        'listings' => Listing::all()
-    ]);
-});
+// Common Resource Rouutes:
+// index - Show all listings
+// show - Show single listing
+// create - Show from to create new listing
+// store - Store new listing
+// edit - Show form to edit listing
+// update - Update listing
+// destroy - Delete listing
+
+// Show all listings
+Route::get('/', [ListingController::class, 'index']);
+
+// Single Listing with Route Model Binding
+Route::get('/listing/{listing}', [ListingController::class, 'show']);
 
 // Response Header Modification
-Route::get('/hello',function(){
-    return response('<h1>Hello World</h1>', 200)
-        ->header('Content-Type','text/plain')
-        ->header('foo','bar');
-});
+// Route::get('/hello',function(){
+//     return response('<h1>Hello World</h1>', 200)
+//         ->header('Content-Type','text/plain')
+//         ->header('foo','bar');
+// });
 
 // Wildcards with constraints using regular expressions
-Route::get('/posts/{id}',function($id){
-    return response('Post '.$id);
-})->where('id','[0-9]+');
+// Route::get('/posts/{id}',function($id){
+//     return response('Post '.$id);
+// })->where('id','[0-9]+');
 
 // Query string With GET Request
-Route::get('/search', function(Request $request){
-    return $request->name;
-});
+// Route::get('/search', function(Request $request){
+//     return $request->name;
+// });
 
-// Single Listing
-Route::get('/listing/{id}',function($id){
-    return view('listing',[
-        'heading' => 'Latest Listings',
-        'listing' => Listing::find($id)
-    ]);
-});
+
+// Single Listing without Route Model Binding
+// Route::get('/listing/{id}',function($id){
+    
+//     $listing = Listing::find($id);
+
+//     if($listing){
+
+//         return view('listing',[
+//             'listing' => $listing
+//         ]);
+
+//     } else{
+//         abort('404');
+//     }
+// });
+
+
