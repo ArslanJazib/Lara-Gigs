@@ -32,6 +32,12 @@ Route::get('/', [ListingController::class, 'index']);
 // Single Listing with Route Model Binding
 Route::get('/listing/{listing}', [ListingController::class, 'show']);
 
+// Show Create Form
+Route::get('/listings/create', [ListingController::class, 'create']);
+
+// Store Create Form
+Route::post('/listings', [ListingController::class, 'store']);
+
 // Response Header Modification
 // Route::get('/hello',function(){
 //     return response('<h1>Hello World</h1>', 200)
