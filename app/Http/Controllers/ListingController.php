@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Listing;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Session;
 
 class ListingController extends Controller
 {
@@ -16,7 +17,7 @@ class ListingController extends Controller
         return view('listings.index', [
             'listings' => Listing::latest()
             ->filter(request(['tag','search']))
-            ->get()
+            ->paginate(5)
         ]);
     }
 
@@ -34,6 +35,7 @@ class ListingController extends Controller
 
     // Stores the form created by the create function above
     public function store(Request $request){
+        
         $formData =  $request->validate([
             'title' => 'required',
             'company' => ['required',Rule::unique('listings','company')],
@@ -44,7 +46,9 @@ class ListingController extends Controller
             'description' =>'required'
         ]);
 
-        return redirect('/');
+        Listing::create($formData);
+
+        return redirect('/')->with('message','Listing created successfully!');
     }
 
     // Shows the edit form on the page
