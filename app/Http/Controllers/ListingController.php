@@ -46,6 +46,10 @@ class ListingController extends Controller
             'description' =>'required'
         ]);
 
+        if($request->hasFile('logo')){
+            $formData['logo'] = $request->file('logo')->store('logos','public');
+        }
+        
         Listing::create($formData);
 
         return redirect('/')->with('message','Listing created successfully!');
@@ -53,16 +57,33 @@ class ListingController extends Controller
 
     // Shows the edit form on the page
     public function edit(Listing $listing){
-
+        return view('listings.edit' , ['listing' => $listing]);
     }
 
     // Update function updates the edit data from the above form
-    public function update(Listing $listing){
+    public function update(Request $request, Listing $listing){
+        $formData =  $request->validate([
+            'title' => 'required',
+            'company' => ['required'],
+            'location' => 'required',
+            'website' => 'required',
+            'email' => ['required','email'],
+            'tags' => 'required',
+            'description' =>'required'
+        ]);
 
+        if($request->hasFile('logo')){
+            $formData['logo'] = $request->file('logo')->store('logos','public');
+        }
+        
+        $listing->update($formData);
+
+        return back()->with('message','Listing updated successfully!');
     }
 
     // Destroy Function deletes a listing
     public function destroy(Listing $listing){
-
+        $listing->delete();
+        return redirect('/')->with('message','Listing Deleted Successfully');
     }
 }

@@ -38,6 +38,21 @@ Route::get('/listings/create', [ListingController::class, 'create']);
 // Store Create Form
 Route::post('/listings', [ListingController::class, 'store']);
 
+// Show edit Form
+Route::get('/listings/{listing}/edit', [ListingController::class, 'edit']);
+
+// Update single Listing
+Route::put('/listings/{listing}', [ListingController::class, 'update']);
+
+// Delete single Listing
+Route::delete('/listings/{listing}', [ListingController::class, 'destroy']);
+
+// Update single Listing
+Route::put('/listings/{listing}', [ListingController::class, 'update']);
+
+// Show Register/Create Form
+Route::put('/listings/{listing}', [UserController::class, 'update']);
+
 // Response Header Modification
 // Route::get('/hello',function(){
 //     return response('<h1>Hello World</h1>', 200)
@@ -71,5 +86,3 @@ Route::post('/listings', [ListingController::class, 'store']);
 //         abort('404');
 //     }
 // });
-
-
